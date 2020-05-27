@@ -234,10 +234,6 @@
       const text = document.createTextNode(goal.name)
       node.appendChild(text)
 
-      node.addEventListener('mouseover', () => {
-        node.style.cursor = 'pointer'
-      })
-
       document.getElementById('goals')
         .appendChild(node)
     }
