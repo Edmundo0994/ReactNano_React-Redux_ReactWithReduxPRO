@@ -1,4 +1,6 @@
-*State Management Class*
+*UI+REDUX CLASS*
 
-This is a class of the React nanodegree program of udacity where you learn how to manage state learning about stores and the state tree, giving advices for better practices.
+
+This is the next class of the React degree where you are going to learn
+how to implement UI on the project.
 
