@@ -127,11 +127,22 @@
       return result
     }
 
+    const extraDisplay = (store) => (next) => (action) => {
+      const result = next (action)
+      if (action.type === ADD_GOAL){
+        return alert('That\'s a great goal!')
+      }
+      if (action.type === ADD_TODO){
+        return alert(`Don't forget to ${action.todo.name}`)
+      }
+      return result
+    }
+
     // Redux has already the root reducer funcionality in combineReducers
     const store = Redux.createStore(Redux.combineReducers({
       todos,
       goals,
-    }), Redux.applyMiddleware(checker, logger))
+    }), Redux.applyMiddleware(checker, logger, extraDisplay))
 
     store.subscribe(() => {
       const { goals, todos } = store.getState()
