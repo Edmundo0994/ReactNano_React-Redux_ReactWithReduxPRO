@@ -82,7 +82,7 @@ function todos (state = [], action) {
     case ADD_TODO:
       return state.concat([action.todo])
     case REMOVE_TODO:
-      return state.filter((todo) => todo.id !== action.id))
+      return state.filter((todo) => todo.id !== action.id)
     case TOGGLE_TODO:
       return state.map((todo) => todo.id !== action.id ? todo :
         Object.assign({}, todo, { complete: !todo.complete}))
@@ -96,7 +96,7 @@ function goals (state = [], action) {
     case ADD_GOAL:
       return state.concat([action.goal])
     case REMOVE_GOAL:
-      return state.filter((goal) => goal.id !== action.id))
+      return state.filter((goal) => goal.id !== action.id)
     default: 
       return state  
   }
