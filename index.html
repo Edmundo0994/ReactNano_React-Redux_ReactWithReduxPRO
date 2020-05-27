@@ -15,7 +15,7 @@
   <div>
     <h1>Goals List</h1>
     <input id='goal' type="text" placeholder="Add Goal"/>
-    <button id='goalBtn'>Add Todo</button>
+    <button id='goalBtn'>Add Goal</button>
     <ul id='goals'></ul>
   </div>
 
@@ -216,6 +216,14 @@
       const node = document.createElement('li')
       const text = document.createTextNode(todo.name)
       node.appendChild(text)
+      node.style.textDecoration = todo.complete ? 'line-through' : 'none'
+
+      node.addEventListener('click', () => {
+        store.dispatch(toggleTodoAction(todo.id))
+      })
+      node.addEventListener('mouseover', () => {
+        node.style.cursor = 'pointer'
+      })
 
       document.getElementById('todos')
         .appendChild(node)
@@ -226,9 +234,14 @@
       const text = document.createTextNode(goal.name)
       node.appendChild(text)
 
+      node.addEventListener('mouseover', () => {
+        node.style.cursor = 'pointer'
+      })
+
       document.getElementById('goals')
         .appendChild(node)
     }
+
   </script>
 </body>
 </html>
