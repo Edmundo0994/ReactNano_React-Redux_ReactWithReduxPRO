@@ -9,6 +9,7 @@
   <script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
   <script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
+  <script src="https://unpkg.com/redux-thunk@2.2.0/dist/redux-thunk.min.js"></script>
 </head>
 <body>
   <div id='app'></div>
@@ -70,8 +71,19 @@
         todos,
         goals
       }
-    }
+    } 
 
+    function handleDeleteTodo (todo) {
+      return (dispatch) => {
+        dispatch(removeTodoAction(todo.id))
+
+        return API.deleteTodo(todo.id)
+          .catch(() => {
+            dispatch(addTodoAction(todo))
+            alert('An error ocurred. Try again')
+          })
+      }
+    }
     // Reducer Functions
     function todos (state = [], action) {
       switch(action.type){
@@ -161,7 +173,7 @@
       todos,
       goals,
       loading,
-    }), Redux.applyMiddleware(checker, logger, /*extraDisplay*/))
+    }), Redux.applyMiddleware(ReduxThunk.default, checker, logger, /*extraDisplay*/))
   </script>
 
   <script type='text/babel'>
@@ -200,13 +212,7 @@
       }
 
       removeItem = (todo) => {
-        this.props.store.dispatch(removeTodoAction(todo.id))
-
-        return API.deleteTodo(todo.id)
-          .catch(() => {
-            this.props.store.dispatch(addTodoAction(todo))
-            alert('An error ocurred. Try again')
-          })
+        this.props.store.dispatch(handleDeleteTodo(todo))
       }
 
       toggleItem = (id) => {
@@ -243,7 +249,7 @@
     class Goals extends React.Component {
       addItem = (e) => {
         e.preventDefault()
-        
+
         return API.saveGoal(this.input.value)
           .then((goal) => {
             this.props.store.dispatch(addGoalAction(goal))
